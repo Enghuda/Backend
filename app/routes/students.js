@@ -72,41 +72,41 @@ router.post("/api/students",(req,res)=>{
  * URI:           /api/student/id
  * Description:   create new student
  */
-// router.patch('/api/students/:id',(req,res)=>{
-//     Student.findById(req.params.id)
-//         .then((student)=>{
-//             if(student){
-//                 return student.update(req.body.student)
-//
-//             }
-//             else {
-//                 res.status(404).json({
-//                     error:{
-//                         name:'DocumnetNotFoundError',
-//                         message:'the provide id doesnt match any documnets'
-//                     }
-//                 })
-//             }
-//
-//
-//         })
-//         .then(() => {
-//             res.status(204).end();
-//         })
-//         .catch((error)=>{
-//             res.status(500).json({error:error})
-//         })
-//
-//
-// });
+router.patch('/api/students/:id',(req,res)=>{
+    Student.findById(req.params.id)
+        .then((student)=>{
+            if(student){
+                return student.update(req.body.student)
+
+            }
+            else {
+                res.status(404).json({
+                    error:{
+                        name:'DocumnetNotFoundError',
+                        message:'the provide id doesnt match any documnets'
+                    }
+                })
+            }
+
+
+        })
+        .then(() => {
+            res.status(204).end();
+        })
+        .catch((error)=>{
+            res.status(500).json({error:error})
+        })
+
+
+});
 
 
 
 /**
  * Action:        DESTROY
  * Method:        DELETE
- * URI:           /api/articles/id
- * Description:   delete Article by id
+ * URI:           /api/students/id
+ * Description:   delete student by id
  */
 
 router.delete('/api/students/:id',(req,res)=>{
