@@ -110,11 +110,11 @@ router.patch('/api/subjects/:id', (req, res) => {
 /**
 * Action:       DESTROY
 * Method:       DELETE
-* URI:          /api/subjects/5d664b8b68b4f5092aba18e9
+* URI:          /api/subjects/5e6b787379d88c247a7ae76c
 * Description:  Delete An Subject by Subject ID
 */
 router.delete('/api/subjects/:id', (req, res) => {
-  Subjects.findById(req.params.id)
+  Subject.findById(req.params.id)
   .then((subject) => {
     if (subject) {
       // Pass the result of Mongoose's `.delete` method to the next `.then`
