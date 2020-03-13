@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const studentRouter = require('./app/routes/students');
 
 
 
@@ -21,10 +22,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 /*** Middleware ***/
-
+app.use(express.json());
 
 /*** Routes ***/
-
+app.use(studentRouter);
 
 
 // Start the server to listen for requests on a given port
