@@ -6,7 +6,7 @@ const adminSchema = new mongoose.Schema({
   Name: { type: String, required: true },
   Email: { type: string, required: true },
   Password: { type: String, required: true },
-  Gender: { type: Boolean, default: true },
+  Gender: String,
   Subject: [SubID]
 });
 
