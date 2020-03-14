@@ -1,0 +1,17 @@
+ "/api/register"
+  {  
+  "admin":{
+  	"ID":22,
+  "Name": "name",
+  "Email": "ms@gmail.com",
+  "Password": "22ww",
+  "password2":"22w",
+  "Gender": "F" 
+  }
+ 
+
+"/api/login"
+  {
+	"Email":"mseess@gmaildd.com",
+	"Password" : "22ww"
+}
