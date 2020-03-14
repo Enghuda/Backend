@@ -7,6 +7,15 @@ const subjectRouter = require('./app/routes/subjects');
 
 
 
+require("dotenv").config();
+const indexRouter = require("./app/routes/index");
+const adminRouter = require("./app/routes/admin");
+const studentRouter = require('./app/routes/students');
+const cors = require('cors');
+
+
+
+
 // Require DB Configuration File
 const db = require('./config/db');
 
@@ -19,8 +28,10 @@ mongoose.connection.once('open', () => {
 // Instantiate Express Application Object
 const app = express();
 
+
 // Define PORT for the API to run on
 const port = process.env.PORT || 5000;
+const reactPort = 3000;
 
 /*** Middleware ***/
 
@@ -30,12 +41,22 @@ const port = process.env.PORT || 5000;
 // The method `.use` sets up middleware for the Express application
 app.use(express.json());
 
+/*** Routes ***/
+app.use(studentRouter);
 
+
+// The method `.use` sets up middleware for the Express application
+app.use(express.json());
+
+// Set CORS headers on response from this API using the `cors` NPM package.
+app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${reactPort}` }))
 /*** Routes ***/
 
 // Mount imported Routers
 app.use(subjectRouter);
 
+app.use(indexRouter);
+app.use(adminRouter);
 
 
 // Start the server to listen for requests on a given port
