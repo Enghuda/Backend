@@ -5,6 +5,10 @@ const cors = require('cors');
 
 // Require Route Files
 const subjectRouter = require('./app/routes/subjects');
+require("dotenv").config();
+const indexRouter = require("./app/routes/index");
+const adminRouter = require("./app/routes/admin");
+const studentRouter = require('./app/routes/students');
 
 
 
@@ -39,6 +43,9 @@ app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${reactPor
 
 // Mount imported Routers
 app.use(subjectRouter);
+app.use(studentRouter);
+app.use(indexRouter);
+app.use(adminRouter);
 
 
 
