@@ -1,10 +1,16 @@
 // Require necessary NPM packages
 const express = require('express');
 const mongoose = require('mongoose');
+
+
+
+
 require("dotenv").config();
 const indexRouter = require("./app/routes/index");
 const adminRouter = require("./app/routes/admin");
+const studentRouter = require('./app/routes/students');
 const cors = require('cors');
+
 
 
 
@@ -26,6 +32,13 @@ const port = process.env.PORT || 5000;
 const reactPort = 3000;
 
 /*** Middleware ***/
+
+app.use(express.json());
+
+/*** Routes ***/
+app.use(studentRouter);
+
+
 // The method `.use` sets up middleware for the Express application
 app.use(express.json());
 
@@ -35,6 +48,7 @@ app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${reactPor
 
 app.use(indexRouter);
 app.use(adminRouter);
+
 
 // Start the server to listen for requests on a given port
 app.listen(port, () => {

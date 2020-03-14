@@ -7,11 +7,11 @@ const studentSchema = new mongoose.Schema({
   ID: Number,
   Gender: String,
   DOB: Date,
-  subject: [{ type: Schema.Types.ObjectId, ref: "Subject" }]
+  subject: [{ type: mongoose.Schema.Types.ObjectId, ref: "Subject" }]
 });
 
 // Compile our Model based on the Schema
-const Student = mongoose.model("Student", studentSchema);
+const Student = mongoose.model('Student', studentSchema);
 
 // Export our Model for use
 module.exports = Student;
