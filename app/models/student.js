@@ -1,3 +1,4 @@
+// Require necessary NPM packages
 const mongoose = require("mongoose");
 
 // Define Student Schema
