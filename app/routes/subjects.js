@@ -141,6 +141,3 @@ router.delete('/api/subjects/:id', (req, res) => {
 
 // Export the Router so we can use it in the server.js file
 module.exports = router;
-
-
-
