@@ -1,6 +1,8 @@
 // Require necessary NPM packages
 const express = require('express');
 const mongoose = require('mongoose');
+const indexRouter = require("./app/routes/index");
+const adminRouter = require("./app/routes/admin");
 const cors = require('cors');
 
 
@@ -30,7 +32,8 @@ app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${reactPort}` }))
 /*** Routes ***/
 
-
+app.use(indexRouter);
+app.use(adminRouter);
 
 // Start the server to listen for requests on a given port
 app.listen(port, () => {
