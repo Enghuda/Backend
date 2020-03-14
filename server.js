@@ -1,6 +1,7 @@
 // Require necessary NPM packages
 const express = require('express');
 const mongoose = require('mongoose');
+require("dotenv").config();
 const indexRouter = require("./app/routes/index");
 const adminRouter = require("./app/routes/admin");
 const cors = require('cors');

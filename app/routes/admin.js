@@ -3,7 +3,8 @@ const express = require("express");
 // Require Mongoose Model for Admin
 const Admin = require("../models/admin");
 const bcrypt = require("bcryptjs");
-
+const jwt = require("jsonwebtoken");
+const { authToken } = require("./verfiyToken"); 
 // Instantiate a Router (mini app that only handles routes)
 const router = express.Router();
 
@@ -46,6 +47,51 @@ router.post("/api/register", async (req, res) => {
   } catch {
     res.status(500).send();
   }
+});
+
+/**
+ * Action:        Check User
+ * Method:        Post
+ * URI:           /api/login
+ * Description:    check if the User in the DB
+ */
+
+//login
+router.post("/api/login", async (req, res) => {
+  //ES6
+  const email = req.body.Email;
+  const pw = req.body.Password;
+  let user;
+  Admin.findOne({ Email: email })
+    .then(record => {
+      // if we didn't find a user with that email, send 401
+      if (!record) {
+        // If we couldn't find a document with the matching Email
+        res.status(404).json({
+          error: {
+            name: "DocumentNotFoundError",
+            message: "The provided Email  is not registered"
+          }
+        });
+      }
+      user = record._id;
+      return bcrypt.compare(pw, record.Password);
+    })
+    .then(correctPassword => {
+      if (!correctPassword) {
+        // if the passwords not matched
+        res.status(500).json("error not allowed pass dont match with Email");
+      } else {
+        // if the passwords matched
+        //res.send("success");
+        // the token will be a 16 byte random hex string
+        // const mytoken = crypto.randomBytes(16).toString("hex");
+        //Create and assign a token
+        const token = jwt.sign({ user }, process.env.TOKEN_SECRET);
+        res.header("auth-token", token).send(token);
+        // res.status(201).json({ user });
+      }
+    });
 });
 
 //Export the router so we can use it in the server.js file
