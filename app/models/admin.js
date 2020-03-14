@@ -8,7 +8,8 @@ const adminSchema = new mongoose.Schema(
     Email: { type: String, strict: true, required: true, unique: true },
     Password: { type: String, required: true },
     Gender: String,
-    date: { type: Date, default: Date.now }
+    date: { type: Date, default: Date.now },
+    Phone: { type: Number, required: true }
     // Subject: [{ type: Schema.Types.ObjectId, ref: "Subject" }]
   },
   {

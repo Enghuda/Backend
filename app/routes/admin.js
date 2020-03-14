@@ -24,7 +24,8 @@ router.post("/api/register", async (req, res) => {
       Name: req.body.admin.Name,
       Password: hashedpass,
       Email: req.body.admin.Email,
-      Gender: req.body.admin.Gender
+      Gender: req.body.admin.Gender,
+      Phone: req.body.admin.Phone,
     };
     //Create user with provided email and hashed password
     Admin.create(user)
