@@ -3,6 +3,7 @@ const express = require('express');
 
 // Require Mongoose Model for Subject
 const Subject = require('../models/subject');
+const Exam = require('../models/subject');
 
 // Instantiate a Router (mini app that only handles routes)
 const router = express.Router();
@@ -34,6 +35,7 @@ router.get('/api/subjects', (req, res) => {
 */
 
 router.post('/api/subjects', (req, res) => {
+
   Subject.create(req.body.subject)
   // On a successful `create` action, respond with 201
   // HTTP status and the content of the new subject.
@@ -45,7 +47,23 @@ router.post('/api/subjects', (req, res) => {
     res.status(500).json({ error: error });
   });
 });
-
+/**
+* Action:       CREATE
+* Method:       POST
+* URI:          /api/subjects/:SubjectCode/exams
+* Description:  Create a new exam
+*/
+router.post('/api/subjects/:SubjectCode/exams', (req, res) => {
+//  console.log('Req',req.body);
+  let newExam= new Exam( req.body.newExam)
+  //console.log('newExam',newExam);
+  Subject.findById(req.params.SubjectCode, (error,foundsubject)=>{
+    foundsubject.Exam.push(newExam);
+    foundsubject.save((error,savedSubject)=>{
+      res.json(savedSubject);
+    })
+  })
+ });
 /**
  * Action:        SHOW
  * Method:        GET

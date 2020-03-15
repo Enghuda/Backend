@@ -4,8 +4,12 @@ const mongoose = require("mongoose");
 // Define Exam Schema
 const examSchema = new mongoose.Schema({
   Name: { type: String, required: true },
-  Date: Date
-});
+  date: { type: Date, default: Date.now }
+},
+{
+  timestamps: true
+}
+);
 // Define Subject Schema
 const subjectSchema = new mongoose.Schema({
   Name: { type: String, required: true },
@@ -21,4 +25,4 @@ const Exam = mongoose.model('Exam', examSchema );
 
 
 // Export our Model for use
-module.exports = Subject, Exam;
+module.exports = Subject, Exam ;
