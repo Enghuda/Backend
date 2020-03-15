@@ -57,7 +57,9 @@ router.post('/api/subjects/:SubjectCode/exams', (req, res) => {
 //  console.log('Req',req.body);
   let newExam= new Exam( req.body.newExam)
   //console.log('newExam',newExam);
+  //find subject by id
   Subject.findById(req.params.SubjectCode, (error,foundsubject)=>{
+    //add new exam
     foundsubject.Exam.push(newExam);
     foundsubject.save((error,savedSubject)=>{
       res.json(savedSubject);
