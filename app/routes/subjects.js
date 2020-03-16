@@ -2,8 +2,8 @@
 const express = require('express');
 
 // Require Mongoose Model for Subject
-const Subject = require('../models/subject');
-
+// const Subject = require('../models/subject');
+const { Subject } = require("../models/subject");
 // Instantiate a Router (mini app that only handles routes)
 const router = express.Router();
 
@@ -33,17 +33,29 @@ router.get('/api/subjects', (req, res) => {
 * Description:  Create a new Subject
 */
 
-router.post('/api/subjects', (req, res) => {
+// router.post('/api/subjects', (req, res) => {
+//   Subject.create(req.body.subject)
+//   // On a successful `create` action, respond with 201
+//   // HTTP status and the content of the new subject.
+//   .then((newSubject) => {
+//     res.status(201).json({ subject: newSubject});
+//   })
+//   // Catch any errors that might occur
+//   .catch((error) => {
+//     res.status(500).json({ error: error });
+//   });
+// });
+router.post("/api/AddNewSub", (req, res) => {
   Subject.create(req.body.subject)
-  // On a successful `create` action, respond with 201
-  // HTTP status and the content of the new subject.
-  .then((newSubject) => {
-    res.status(201).json({ subject: newSubject});
-  })
-  // Catch any errors that might occur
-  .catch((error) => {
-    res.status(500).json({ error: error });
-  });
+    // On a successful `create` action, respond with 201
+    // HTTP status and the content of the new subject.
+    .then(newSubject => {
+      res.status(201).json({ subject: newSubject });
+    })
+    // Catch any errors that might occur
+    .catch(error => {
+      res.status(500).json({ error: error });
+    });
 });
 
 /**

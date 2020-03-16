@@ -21,4 +21,4 @@ const Exam = mongoose.model('Exam', examSchema );
 
 
 // Export our Model for use
-module.exports = Subject, Exam;
+module.exports = {Subject, Exam};
