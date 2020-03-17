@@ -1,36 +1,34 @@
 // Require necessary NPM packages
-const express = require('express');
+const express = require("express");
 // Require Mongoose Model for Subject
-const Subject = require('../models/subject');
-const Exam = require('../models/subject');
-
+const { Subject, Exam } = require("../models/subject");
+// const {} = require('../models/exam');
 // Instantiate a Router (mini app that only handles routes)
 const router = express.Router();
-
 /**
  * Action:        INDEX
  * Method:        GET
  * URI:           /api/courses
  * Description:   Get All Subjects
  */
-router.get('/api/subjects', (req, res) => {
+router.get("/api/subjects", (req, res) => {
   Subject.find()
     // Return all Subjects as an Array
-    .then((allSubjects) => {
+    .then(allSubjects => {
       res.status(200).json({ subjects: allSubjects });
     })
     // Catch any errors that might occur
-    .catch((error) => {
+    .catch(error => {
       res.status(500).json({ error: error });
     });
 });
 /////////////////////////////////////////////////////////////
 /**
-* Action:       CREATE
-* Method:       POST
-* URI:          /api//subjects
-* Description:  Create a new Subject
-*/
+ * Action:       CREATE
+ * Method:       POST
+ * URI:          /api//subjects
+ * Description:  Create a new Subject
+ */
 
 router.post('/api/subjects', (req, res) => {
 
@@ -52,25 +50,25 @@ router.post('/api/subjects', (req, res) => {
  * URI:           /api/subjectS/5e6b775079d88c247a7ae76a
  * Description:   Get An Subject by Subject ID
  */
-router.get('/api/subjects/:id', (req, res) => {
+router.get("/api/subjects/:id", (req, res) => {
   Subject.findById(req.params.id)
-    .then((subject) => {
+    .then(subject => {
       if (subject) {
         res.status(200).json({ subject: subject });
       } else {
         // If we couldn't find a document with the matching ID
         res.status(404).json({
           error: {
-            name: 'DocumentNotFoundError',
-            message: 'The provided ID doesn\'t match any documents'
+            name: "DocumentNotFoundError",
+            message: "The provided ID doesn't match any documents"
           }
         });
       }
     })
     // Catch any errors that might occur
-    .catch((error) => {
+    .catch(error => {
       res.status(500).json({ error: error });
-    })
+    });
 });
 /**
  * Action:      UPDATE
@@ -78,9 +76,9 @@ router.get('/api/subjects/:id', (req, res) => {
  * URI:         /api/subjects/5e6b775079d88c247a7ae76a
  * Description: Update An Subject by Subject ID
  */
-router.patch('/api/subjects/:id', (req, res) => {
+router.patch("/api/subjects/:id", (req, res) => {
   Subject.findById(req.params.id)
-    .then((subject) => {
+    .then(subject => {
       if (subject) {
         // Pass the result of Mongoose's `.update` method to the next `.then`
         return subject.update(req.body.subject);
@@ -88,8 +86,8 @@ router.patch('/api/subjects/:id', (req, res) => {
         // If we couldn't find a document with the matching ID
         res.status(404).json({
           error: {
-            name: 'DocumentNotFoundError',
-            message: 'The provided ID doesn\'t match any documents'
+            name: "DocumentNotFoundError",
+            message: "The provided ID doesn't match any documents"
           }
         });
       }
@@ -99,20 +97,20 @@ router.patch('/api/subjects/:id', (req, res) => {
       res.status(204).end();
     })
     // Catch any errors that might occur
-    .catch((error) => {
+    .catch(error => {
       res.status(500).json({ error: error });
     });
 });
 
 /**
-* Action:       DESTROY
-* Method:       DELETE
-* URI:          /api/subjects/5e6b787379d88c247a7ae76c
-* Description:  Delete An Subject by Subject ID
-*/
-router.delete('/api/subjects/:id', (req, res) => {
+ * Action:       DESTROY
+ * Method:       DELETE
+ * URI:          /api/subjects/5e6b787379d88c247a7ae76c
+ * Description:  Delete An Subject by Subject ID
+ */
+router.delete("/api/subjects/:id", (req, res) => {
   Subject.findById(req.params.id)
-    .then((subject) => {
+    .then(subject => {
       if (subject) {
         // Pass the result of Mongoose's `.delete` method to the next `.then`
         return subject.remove();
@@ -120,8 +118,8 @@ router.delete('/api/subjects/:id', (req, res) => {
         // If we couldn't find a document with the matching ID
         res.status(404).json({
           error: {
-            name: 'DocumentNotFoundError',
-            message: 'The provided ID Doesn\'t match any documents'
+            name: "DocumentNotFoundError",
+            message: "The provided ID Doesn't match any documents"
           }
         });
       }
@@ -131,7 +129,7 @@ router.delete('/api/subjects/:id', (req, res) => {
       res.status(204).end();
     })
     // Catch any errors that might occur
-    .catch((error) => {
+    .catch(error => {
       res.status(500).json({ error: error });
     });
 });
