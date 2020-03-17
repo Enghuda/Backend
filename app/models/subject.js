@@ -9,7 +9,7 @@ const examSchema = new mongoose.Schema({
 // Define Subject Schema
 const subjectSchema = new mongoose.Schema({
   Name: { type: String, required: true },
-  SubjectCode: Number,
+  SubjectCode: { type: Number, unique: true, strict: true },
   Level: Number,
   Teacher: [{ type: mongoose.Schema.Types.ObjectId, ref: "Teacher" }],
   Exam: [examSchema]
