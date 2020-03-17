@@ -1,13 +1,12 @@
 // Require necessary NPM packages
-const express = require('express');
+const express = require("express");
 
 // Require Mongoose Model for Subject
-const Subject = require('../models/subject');
-const {Exam} = require('../models/exam');
+const { Subject, Exam } = require("../models/subject");
+// const {} = require('../models/exam');
 
 // Instantiate a Router (mini app that only handles routes)
 const router = express.Router();
-
 
 /**
  * Action:        INDEX
@@ -15,24 +14,24 @@ const router = express.Router();
  * URI:           /api/courses
  * Description:   Get All Subjects
  */
-router.get('/api/subjects', (req, res) => {
+router.get("/api/subjects", (req, res) => {
   Subject.find()
     // Return all Subjects as an Array
-    .then((allSubjects) => {
+    .then(allSubjects => {
       res.status(200).json({ subjects: allSubjects });
     })
     // Catch any errors that might occur
-    .catch((error) => {
+    .catch(error => {
       res.status(500).json({ error: error });
     });
 });
 /////////////////////////////////////////////////////////////
 /**
-* Action:       CREATE
-* Method:       POST
-* URI:          /api//subjects
-* Description:  Create a new Subject
-*/
+ * Action:       CREATE
+ * Method:       POST
+ * URI:          /api//subjects
+ * Description:  Create a new Subject
+ */
 
 // router.post('/api/subjects', (req, res) => {
 //   Subject.create(req.body.subject)
@@ -70,25 +69,25 @@ router.post("/api/AddNewSub", (req, res) => {
  * URI:           /api/subjectS/5e6b775079d88c247a7ae76a
  * Description:   Get An Subject by Subject ID
  */
-router.get('/api/subjects/:id', (req, res) => {
+router.get("/api/subjects/:id", (req, res) => {
   Subject.findById(req.params.id)
-    .then((subject) => {
+    .then(subject => {
       if (subject) {
         res.status(200).json({ subject: subject });
       } else {
         // If we couldn't find a document with the matching ID
         res.status(404).json({
           error: {
-            name: 'DocumentNotFoundError',
-            message: 'The provided ID doesn\'t match any documents'
+            name: "DocumentNotFoundError",
+            message: "The provided ID doesn't match any documents"
           }
         });
       }
     })
     // Catch any errors that might occur
-    .catch((error) => {
+    .catch(error => {
       res.status(500).json({ error: error });
-    })
+    });
 });
 /**
  * Action:      UPDATE
@@ -96,9 +95,9 @@ router.get('/api/subjects/:id', (req, res) => {
  * URI:         /api/subjects/5e6b775079d88c247a7ae76a
  * Description: Update An Subject by Subject ID
  */
-router.patch('/api/subjects/:id', (req, res) => {
+router.patch("/api/subjects/:id", (req, res) => {
   Subject.findById(req.params.id)
-    .then((subject) => {
+    .then(subject => {
       if (subject) {
         // Pass the result of Mongoose's `.update` method to the next `.then`
         return subject.update(req.body.subject);
@@ -106,8 +105,8 @@ router.patch('/api/subjects/:id', (req, res) => {
         // If we couldn't find a document with the matching ID
         res.status(404).json({
           error: {
-            name: 'DocumentNotFoundError',
-            message: 'The provided ID doesn\'t match any documents'
+            name: "DocumentNotFoundError",
+            message: "The provided ID doesn't match any documents"
           }
         });
       }
@@ -117,20 +116,20 @@ router.patch('/api/subjects/:id', (req, res) => {
       res.status(204).end();
     })
     // Catch any errors that might occur
-    .catch((error) => {
+    .catch(error => {
       res.status(500).json({ error: error });
     });
 });
 
 /**
-* Action:       DESTROY
-* Method:       DELETE
-* URI:          /api/subjects/5e6b787379d88c247a7ae76c
-* Description:  Delete An Subject by Subject ID
-*/
-router.delete('/api/subjects/:id', (req, res) => {
+ * Action:       DESTROY
+ * Method:       DELETE
+ * URI:          /api/subjects/5e6b787379d88c247a7ae76c
+ * Description:  Delete An Subject by Subject ID
+ */
+router.delete("/api/subjects/:id", (req, res) => {
   Subject.findById(req.params.id)
-    .then((subject) => {
+    .then(subject => {
       if (subject) {
         // Pass the result of Mongoose's `.delete` method to the next `.then`
         return subject.remove();
@@ -138,8 +137,8 @@ router.delete('/api/subjects/:id', (req, res) => {
         // If we couldn't find a document with the matching ID
         res.status(404).json({
           error: {
-            name: 'DocumentNotFoundError',
-            message: 'The provided ID Doesn\'t match any documents'
+            name: "DocumentNotFoundError",
+            message: "The provided ID Doesn't match any documents"
           }
         });
       }
@@ -149,100 +148,99 @@ router.delete('/api/subjects/:id', (req, res) => {
       res.status(204).end();
     })
     // Catch any errors that might occur
-    .catch((error) => {
+    .catch(error => {
       res.status(500).json({ error: error });
     });
 });
 //////////////////////////////////////////////////////////////////////////////////////////////
 /**
-* Action:       CREATE
-* Method:       POST
-* URI:          /api/subjects/:subjectId/exams
-* Description:  Create a new exam
-*/
-router.post('/api/subjects/:subjectId/exams', (req, res) => {
+ * Action:       CREATE
+ * Method:       POST
+ * URI:          /api/subjects/:subjectId/exams
+ * Description:  Create a new exam
+ */
+router.post("/api/subjects/:subjectId/exams", (req, res) => {
   //  console.log('Req',req.body);
   let newExam = new Exam(req.body.newExam)
   //console.log('newExam',newExam);
-  //find subject by id
+  //find subject by id  error.code
   Subject.findById(req.params.subjectId, (error, foundsubject) => {
     //add new exam
+    
     foundsubject.Exam.push(newExam);
     foundsubject.save((error, savedSubject) => {
       res.json(savedSubject);
-    })
-  })
+    });
+  });
 });
 
 /**
  * Action:        SHOW
  * Method:        GET
-* URI:         /api/subjects/5e6b775079d88c247a7ae76a
-* Description:  Get all Exam by
-*/
+ * URI:         /api/subjects/5e6b775079d88c247a7ae76a
+ * Description:  Get all Exam by
+ */
 
-router.get('/api/subjects/:subjectId/exams', (req, res) => {
+router.get("/api/subjects/:subjectId/exams", (req, res) => {
   Subject.findById(req.params.subjectId)
-    .then((subject) => {
+    .then(subject => {
       if (subject) {
         res.status(200).json({ exam: subject.Exam });
       } else {
         // If we couldn't find a document with the matching ID
         res.status(404).json({
           error: {
-            name: 'DocumentNotFoundError',
-            message: 'The provided ID doesn\'t match any documents'
+            name: "DocumentNotFoundError",
+            message: "The provided ID doesn't match any documents"
           }
         });
       }
     })
     // Catch any errors that might occur
-    .catch((error) => {
+    .catch(error => {
       res.status(500).json({ error: error });
-    })
+    });
 });
-
 
 /**
  * Action:        SHOW
  * Method:        GET
-* URI:         /api/subjects/5e6b775079d88c247a7ae76a
-* Description:  Get  Exam by ID
-*/router.get('/api/subjects/:subjectId/exams/:examId', (req, res) => {
+ * URI:         /api/subjects/5e6b775079d88c247a7ae76a
+ * Description:  Get  Exam by ID
+ */ router.get("/api/subjects/:subjectId/exams/:examId", (req, res) => {
   console.log("params:", req.params);
-  //find s by id  
+  //find s by id
   Subject.findById(req.params.subjectId)
-  //if you find
-    .then((subject) => {
+    //if you find
+    .then(subject => {
       let findedExam;
       // console.log("hhhhhhhh" ,subject)
       if (subject) {
-//arry of obj
+        //arry of obj
         for (let i = 0; i < subject.Exam.length; i++) {
           const oneExamObj = subject.Exam[i];
           // I need to get the oneExamObj that if the id of this exam equal what the id that the user sent
           // console.log(i, typeof oneExamObj._id, typeof req.params.examId );
           if (oneExamObj._id.toString() === req.params.examId) {
-            console.log('heeeeeey I find it');
-             findedExam=oneExamObj
+            console.log("heeeeeey I find it");
+            findedExam = oneExamObj;
           }
         }
-        console.log("finish")
-        res.status(200).json({exam:findedExam});
-
+        console.log("finish");
+        res.status(200).json({ exam: findedExam });
       } else {
         res.status(404).json({
           error: {
-            name: 'DocumentNotFoundError',
-            message: 'The provided ID doesn\'t match any documents'
+            name: "DocumentNotFoundError",
+            message: "The provided ID doesn't match any documents"
           }
         });
       }
     })
     // Catch any errors that might occur
-    .catch((error) => {
+    .catch(error => {
       res.status(500).json({ error: error });
-    })
+    });
 });
 /**
  * Action:      UPDATE
@@ -250,7 +248,6 @@ router.get('/api/subjects/:subjectId/exams', (req, res) => {
  * URI:         /api/subjects/5e6b775079d88c247a7ae76a
  * Description: Update An Subject by Subject ID
  */
-
 
 /* 
 router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
@@ -305,8 +302,6 @@ router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
 
 }); */
 
-
-
 /* router.delete('/api/subjects/:subjectId/exams/:examId', (req, res) => {
   Subject.findById(req.params.subjectId)
     .then((subjects) => {
@@ -315,12 +310,12 @@ router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
       subjects.save()
       res.json({ subjects: subjects })
     }) */
-  /*  const delId =  req.params.SubjectCode;
+/*  const delId =  req.params.SubjectCode;
    Subject.findById(delId) */
-  //console.log(Subject.findById( req.params.SubjectCode))
-  /*  const fundexam =  Subject.findById(delId);
+//console.log(Subject.findById( req.params.SubjectCode))
+/*  const fundexam =  Subject.findById(delId);
    console.log(fundexam) */
-  /* .then((exam)=>{
+/* .then((exam)=>{
         if(exam){
         Exam.findById(delId)
         console.log(exam)
@@ -341,12 +336,11 @@ router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
     
         }
   }) */
-  
-  // Catch any errors that might occur
-  /*     .catch((error) => {
+
+// Catch any errors that might occur
+/*     .catch((error) => {
         res.status(500).json({ error: error });
       }); */
-
 
 // Export the Router so we can use it in the server.js file
 module.exports = router;
