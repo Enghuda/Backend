@@ -1,13 +1,11 @@
 // Require necessary NPM packages
 const express = require('express');
-
 // Require Mongoose Model for Subject
 const Subject = require('../models/subject');
-const {Exam} = require('../models/exam');
+const Exam = require('../models/subject');
 
 // Instantiate a Router (mini app that only handles routes)
 const router = express.Router();
-
 
 /**
  * Action:        INDEX
@@ -34,33 +32,17 @@ router.get('/api/subjects', (req, res) => {
 * Description:  Create a new Subject
 */
 
-// router.post('/api/subjects', (req, res) => {
-//   Subject.create(req.body.subject)
-//   // On a successful `create` action, respond with 201
-//   // HTTP status and the content of the new subject.
-//   .then((newSubject) => {
-//     res.status(201).json({ subject: newSubject});
-//   })
-//   // Catch any errors that might occur
-//   .catch((error) => {
-//     res.status(500).json({ error: error });
-//   });
-// });
-router.post("/api/AddNewSub", (req, res) => {
+router.post('/api/subjects', (req, res) => {
+
   Subject.create(req.body.subject)
     // On a successful `create` action, respond with 201
     // HTTP status and the content of the new subject.
-    .then(newSubject => {
+    .then((newSubject) => {
       res.status(201).json({ subject: newSubject });
     })
     // Catch any errors that might occur
-    .catch(error => {
-      if (error.code === 11000) {
-        res.json("this subject already Exist");
-      } else {
-        // res.json(error.code)
-        res.status(500).json({ error: error });
-      }
+    .catch((error) => {
+      res.status(500).json({ error: error });
     });
 });
 
@@ -153,7 +135,6 @@ router.delete('/api/subjects/:id', (req, res) => {
       res.status(500).json({ error: error });
     });
 });
-//////////////////////////////////////////////////////////////////////////////////////////////
 /**
 * Action:       CREATE
 * Method:       POST
@@ -175,11 +156,12 @@ router.post('/api/subjects/:subjectId/exams', (req, res) => {
 });
 
 /**
- * Action:        SHOW
- * Method:        GET
-* URI:         /api/subjects/5e6b775079d88c247a7ae76a
-* Description:  Get all Exam by
+* Action:      SHOW
+* Method:      GET
+* URI:         /api/subjects/5e70a6134cdb4c3fb4b20b8a/exams
+* Description: get Exams
 */
+
 
 router.get('/api/subjects/:subjectId/exams', (req, res) => {
   Subject.findById(req.params.subjectId)
@@ -202,26 +184,21 @@ router.get('/api/subjects/:subjectId/exams', (req, res) => {
     })
 });
 
-
 /**
- * Action:        SHOW
- * Method:        GET
-* URI:         /api/subjects/5e6b775079d88c247a7ae76a
-* Description:  Get  Exam by ID
-*/router.get('/api/subjects/:subjectId/exams/:examId', (req, res) => {
+* Action:      SHOW
+* Method:      GET
+* URI:       api/subjects/5e70864b4dcf5a4278b3fa0e/exams/5e70868f4dcf5a4278b3fa0f
+* Description: get Exam By ID
+*/
+// req.params.NAME
+router.get('/api/subjects/:subjectId/exams/:examId', (req, res) => {
   console.log("params:", req.params);
-  //find s by id  
   Subject.findById(req.params.subjectId)
-  //if you find
     .then((subject) => {
       let findedExam;
-      // console.log("hhhhhhhh" ,subject)
       if (subject) {
-//arry of obj
         for (let i = 0; i < subject.Exam.length; i++) {
           const oneExamObj = subject.Exam[i];
-          // I need to get the oneExamObj that if the id of this exam equal what the id that the user sent
-          // console.log(i, typeof oneExamObj._id, typeof req.params.examId );
           if (oneExamObj._id.toString() === req.params.examId) {
             console.log('heeeeeey I find it');
              findedExam=oneExamObj
@@ -247,106 +224,57 @@ router.get('/api/subjects/:subjectId/exams', (req, res) => {
 /**
  * Action:      UPDATE
  * Method:      PATCH
- * URI:         /api/subjects/5e6b775079d88c247a7ae76a
- * Description: Update An Subject by Subject ID
+ * URI:         /api/subjects/5e70a6134cdb4c3fb4b20b8a/exams/5e70ab7b8158195458845d38
+ * Description: Update Exam by exam ID
  */
-
-
-/* 
 router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
-
+  console.log("params:", req.params);
+  const examInfo=req.body.Exam
+  //find s by id  
   Subject.findById(req.params.subjectId)
-
-      .then(subject => {
-
-          if (subject) {
-
-              let examIndex = subject.Exam.forEach(e => console.log(e==req.params.examId));
-              console.log(examIndex);
-              if (!examIndex) throw ("Exam not found");
-
-              subject.Exam[examIndex] = req.body.subject.Exam;
-
-              return subject.update();
-
-          } else {
-
-              res.status(404).json({
-
-                  error: {
-
-                      name: 'DocumentNotFoundError',
-
-                      message: 'The provided SubjectCode doesn\'t match any documents'
-
-                  }
-
-              });
-
+    .then((subject) => {
+      let findedExam;
+      if (subject) {
+        for (let i = 0; i < subject.Exam.length; i++) {
+          const oneExamObj = subject.Exam[i];
+          if (oneExamObj._id.toString() === req.params.examId) {
+            console.log('heeeeeey I find it');
+            oneExamObj.Name=examInfo.Name
+            findedExam=oneExamObj
           }
+        }
+      subject.save()
+        res.status(200).json(findedExam);
 
-      })
-
-      .then(() => {
-
-          // If the update succeeded, return 204 and no JSON
-
-          res.status(204).end();
-
-      })
-
-      // Catch any errors that might occur
-
-      .catch((error) => {
-
-          res.status(500).json({ error: error });
-
-      });
-
-}); */
-
-
-
-/* router.delete('/api/subjects/:subjectId/exams/:examId', (req, res) => {
+      } else {
+        res.status(404).json({
+          error: {
+            name: 'Exam NotFound Error',
+            message: 'The provided ID doesn\'t match any documents'
+          }
+        });
+      }
+    })
+    // Catch any errors that might occur
+    .catch((error) => {
+      res.status(500).json({ error: error });
+    })
+});
+/**
+* Action:       DESTROY
+* Method:       DELETE
+* URI:          /api/subjects/5e7113020443183fec141fbb/exams
+* Description:  Delete Exam
+*/
+router.delete('/api/subjects/:subjectId/exams', (req, res) => {
   Subject.findById(req.params.subjectId)
     .then((subjects) => {
       //res.json({subjects:subjects.Exam})
       subjects.Exam.pop()
       subjects.save()
       res.json({ subjects: subjects })
-    }) */
-  /*  const delId =  req.params.SubjectCode;
-   Subject.findById(delId) */
-  //console.log(Subject.findById( req.params.SubjectCode))
-  /*  const fundexam =  Subject.findById(delId);
-   console.log(fundexam) */
-  /* .then((exam)=>{
-        if(exam){
-        Exam.findById(delId)
-        console.log(exam)
-        .then(exam2 =>{
-                if(exam2){
-                  return exam2.remove();
-                }
-                else{
-                  console.log(exam2)
-                  res.status(404).json({
-                    error: {
-                      name: 'ExamFoundError',
-                      message: 'The provided Id doesn\'t match any Exam'
-                    }
-                  });
-                              }
-        });
-    
-        }
-  }) */
-  
-  // Catch any errors that might occur
-  /*     .catch((error) => {
-        res.status(500).json({ error: error });
-      }); */
-
+    })
+});
 
 // Export the Router so we can use it in the server.js file
 module.exports = router;
