@@ -9,7 +9,7 @@ const indexRouter = require("./app/routes/index");
 const adminRouter = require("./app/routes/admin");
 const studentRouter = require('./app/routes/students');
 const parentRouter = require('./app/routes/parent');
-const feedRouter = require('./app/routes/feed');
+const feedRouter = require('./app/routes/feeds');
 
 
 

@@ -54,7 +54,12 @@ router.post("/api/AddNewSub", (req, res) => {
     })
     // Catch any errors that might occur
     .catch(error => {
-      res.status(500).json({ error: error });
+      if (error.code === 11000) {
+        res.json("this subject already Exist");
+      } else {
+        // res.json(error.code)
+        res.status(500).json({ error: error });
+      }
     });
 });
 

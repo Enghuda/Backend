@@ -120,6 +120,13 @@ router.post("/api/login", async (req, res) => {
     });
 });
 
+/**
+ * Action:        logout
+ * Method:        delete
+ * URI:           /api/logout
+ * Description:    change the user token
+ */
+
 router.delete("/api/logout", requireToken, (req, res, next) => {
   // create a new random token for the user, invalidating the current one
   req.user.token = crypto.randomBytes(16);
