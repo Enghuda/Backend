@@ -236,8 +236,8 @@ router.get('/api/subjects/:subjectId/exams', (req, res) => {
  */
 
 
-
-/* router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
+/* 
+router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
 
   Subject.findById(req.params.subjectId)
 
@@ -245,7 +245,7 @@ router.get('/api/subjects/:subjectId/exams', (req, res) => {
 
           if (subject) {
 
-              let examIndex = subject.Exam.find((e, i) => e._id == req.params.examId);
+              let examIndex = subject.Exam.forEach(e => console.log(e==req.params.examId));
               console.log(examIndex);
               if (!examIndex) throw ("Exam not found");
 
@@ -287,11 +287,11 @@ router.get('/api/subjects/:subjectId/exams', (req, res) => {
 
       });
 
-});
+}); */
 
 
 
-router.delete('/api/subjects/:subjectId/exams/:examId', (req, res) => {
+/* router.delete('/api/subjects/:subjectId/exams/:examId', (req, res) => {
   Subject.findById(req.params.subjectId)
     .then((subjects) => {
       //res.json({subjects:subjects.Exam})
@@ -299,7 +299,37 @@ router.delete('/api/subjects/:subjectId/exams/:examId', (req, res) => {
       subjects.save()
       res.json({ subjects: subjects })
     }) */
- 
+  /*  const delId =  req.params.SubjectCode;
+   Subject.findById(delId) */
+  //console.log(Subject.findById( req.params.SubjectCode))
+  /*  const fundexam =  Subject.findById(delId);
+   console.log(fundexam) */
+  /* .then((exam)=>{
+        if(exam){
+        Exam.findById(delId)
+        console.log(exam)
+        .then(exam2 =>{
+                if(exam2){
+                  return exam2.remove();
+                }
+                else{
+                  console.log(exam2)
+                  res.status(404).json({
+                    error: {
+                      name: 'ExamFoundError',
+                      message: 'The provided Id doesn\'t match any Exam'
+                    }
+                  });
+                              }
+        });
+    
+        }
+  }) */
+  
+  // Catch any errors that might occur
+  /*     .catch((error) => {
+        res.status(500).json({ error: error });
+      }); */
 
 
 // Export the Router so we can use it in the server.js file
