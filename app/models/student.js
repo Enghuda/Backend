@@ -8,6 +8,7 @@ const studentSchema = new mongoose.Schema({
   ID: Number,
   Gender: String,
   DOB: Date,
+  Attendance: Number,
   subject: [{ type: mongoose.Schema.Types.ObjectId, ref: "Subject" }]
 });
 

@@ -8,6 +8,8 @@ const subjectRouter = require('./app/routes/subjects');
 const indexRouter = require("./app/routes/index");
 const adminRouter = require("./app/routes/admin");
 const studentRouter = require('./app/routes/students');
+const parentRouter = require('./app/routes/parent');
+const feedRouter = require('./app/routes/feed');
 
 
 
@@ -65,6 +67,8 @@ const tokenOrBearer = require('./auth/token_or_bearer');
 // Mount imported Routers
 app.use(subjectRouter);
 app.use(studentRouter);
+app.use(parentRouter);
+app.use(feedRouter);
 app.use(requestLogger)
 app.use(tokenOrBearer)
 
