@@ -15,9 +15,21 @@ const examSchema = new mongoose.Schema({
 
 const mongoose = require("mongoose");
 
-const { examSchema } = require("./exam");
+// const { examSchema } = require("./exam");
 
+const examSchema = new mongoose.Schema(
+  {
+    Name: { type: String, required: true },
 
+    date: { type: String }
+  },
+
+  {
+    timestamps: true
+  }
+);
+
+const Exam = mongoose.model("Exam", examSchema);
 
 // Define Subject Schema
 
@@ -30,7 +42,6 @@ const subjectSchema = new mongoose.Schema({
   Teacher: [{ type: mongoose.Schema.Types.ObjectId, ref: "Teacher" }],
 
   Exam: [examSchema]
-
 });
 
 
@@ -42,4 +53,4 @@ const Subject = mongoose.model('Subject', subjectSchema);
 
 
 // Export our Model for use
-module.exports = {Subject, Exam};
+module.exports = {Subject ,  Exam};
