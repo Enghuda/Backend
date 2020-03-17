@@ -24,9 +24,7 @@ const { examSchema } = require("./exam");
 const subjectSchema = new mongoose.Schema({
 
   Name: { type: String, required: true },
-
-  SubjectCode: Number,
-
+  SubjectCode: { type: Number, unique: true, strict: true },
   Level: Number,
 
   Teacher: [{ type: mongoose.Schema.Types.ObjectId, ref: "Teacher" }],
@@ -44,5 +42,4 @@ const Subject = mongoose.model('Subject', subjectSchema);
 
 
 // Export our Model for use
-
-module.exports = Subject;
+module.exports = {Subject, Exam};

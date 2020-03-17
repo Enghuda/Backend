@@ -1,7 +1,6 @@
 // require npm packages
 const express = require('express');
 const Student = require('../models/student');
-const {authToken} = require('./verfiyToken');
 
 const router = express.Router();
 /**

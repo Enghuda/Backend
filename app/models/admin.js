@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 // Define Admin Schema
-const adminSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
-    ID: Number,
+    token: String,
     Name: { type: String, required: true },
     Email: { type: String, strict: true, required: true, unique: true },
     Password: { type: String, required: true },
@@ -18,7 +18,7 @@ const adminSchema = new mongoose.Schema(
 );
 
 // Compile our Model based on the Schema
-const Admin = mongoose.model("Admin", adminSchema);
+const User = mongoose.model("User", userSchema);
 
 // Export our Model for use
-module.exports = Admin;
+module.exports = User;

@@ -34,17 +34,33 @@ router.get('/api/subjects', (req, res) => {
 * Description:  Create a new Subject
 */
 
-router.post('/api/subjects', (req, res) => {
-
+// router.post('/api/subjects', (req, res) => {
+//   Subject.create(req.body.subject)
+//   // On a successful `create` action, respond with 201
+//   // HTTP status and the content of the new subject.
+//   .then((newSubject) => {
+//     res.status(201).json({ subject: newSubject});
+//   })
+//   // Catch any errors that might occur
+//   .catch((error) => {
+//     res.status(500).json({ error: error });
+//   });
+// });
+router.post("/api/AddNewSub", (req, res) => {
   Subject.create(req.body.subject)
     // On a successful `create` action, respond with 201
     // HTTP status and the content of the new subject.
-    .then((newSubject) => {
+    .then(newSubject => {
       res.status(201).json({ subject: newSubject });
     })
     // Catch any errors that might occur
-    .catch((error) => {
-      res.status(500).json({ error: error });
+    .catch(error => {
+      if (error.code === 11000) {
+        res.json("this subject already Exist");
+      } else {
+        // res.json(error.code)
+        res.status(500).json({ error: error });
+      }
     });
 });
 
