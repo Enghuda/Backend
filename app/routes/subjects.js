@@ -262,40 +262,17 @@ router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
 * Action:       DESTROY
 * Method:       DELETE
 * URI:          /api/subjects/5e7113020443183fec141fbb/exams
-* Description:  Delete Exam
+* Description:  Delete Exam by ID
 */
-router.delete('/api/subjects/:subjectId/exams', (req, res) => {
-  Subject.findById(req.params.subjectId)
-    .then((subjects) => {
-      subjects.Exam.pop()
-      subjects.save()
-      res.json({ subjects: subjects })
-    }) 
-/*     Subject.findById(req.params.subjectId)
-    .then((subject) => {
-      if (subject) {
-        for (let i = 0; i < subject.Exam.length; i++) {
-          const oneExamObj = subject.Exam[i];
-
-          if (oneExamObj._id.toString() === req.params.examId) {
-            console.log('I find it');
-           return oneExamObj.delete();
-          }
-        }
-      } else {
-        res.status(404).json({
-          error: {
-            name: 'Exam NotFound Error',
-            message: 'The provided ID doesn\'t match any documents'
-          }
-        });
-      }
-    })
-    // Catch any errors that might occur
-    .catch((error) => {
-      res.status(500).json({ error: error });
-    }) */
+router.delete('/api/subjects/:subjectId/exams/:examId', (req, res) => {
+  const sujectid = req.params.subjectId;
+  const examid = req.params.examId;
+  // find exam in db by id
+  Subject.findById(sujectid, (err, foundArticle) => {
+      foundArticle.Exam.id(examid).remove();
+      foundArticle.save();
+      res.json(foundArticle);
+  });
 });
-
 // Export the Router so we can use it in the server.js file
 module.exports = router;
