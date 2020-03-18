@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema(
     Password: { type: String, required: true },
     Gender: String,
     date: { type: Date, default: Date.now },
-    Phone: { type: Number, required: true }
-    // Subject: [{ type: Schema.Types.ObjectId, ref: "Subject" }]
+    Phone: { type: Number, required: true },
+    Subject: [{ type: mongoose.Schema.Types.ObjectId, ref: "Subject" }]
   },
   {
     timestamps: true

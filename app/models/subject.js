@@ -11,9 +11,10 @@ const subjectSchema = new mongoose.Schema({
   Name: { type: String, required: true },
   SubjectCode: { type: Number, unique: true, strict: true },
   Level: Number,
-  Teacher: [{ type: mongoose.Schema.Types.ObjectId, ref: "Teacher" }],
-  Exam: [examSchema]
+  Teacher: [{ type: mongoose.Schema.Types.ObjectId, ref: "Admin" }],
+  Exam: []
 });
+
 
 // Compile our Model based on the Schema
 const Subject = mongoose.model('Subject', subjectSchema);
