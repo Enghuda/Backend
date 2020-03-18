@@ -28,7 +28,6 @@ router.get("/api/subjects", (req, res, next) => {
     // Catch any errors that might occur
     .catch(next);
 });
-/////////////////////////////////////////////////////////////
 /**
  * Action:       CREATE
  * Method:       POST
