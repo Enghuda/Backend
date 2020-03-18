@@ -8,21 +8,20 @@ const subjectRouter = require('./app/routes/subjects');
 const indexRouter = require("./app/routes/index");
 const adminRouter = require("./app/routes/admin");
 const studentRouter = require('./app/routes/students');
-
-
-
-
-
 // Require DB Configuration File
 const db = require('./config/db');
 
 // Establish Database Connection
-mongoose.set("useCreateIndex", true);
+/* mongoose.set("useCreateIndex", true);
 mongoose.connect(db, { useNewUrlParser: true });
 mongoose.connection.once('open', () => {
   console.log('Connected to Mongo');
+}); */
+// establish database connection
+mongoose.Promise = global.Promise;
+mongoose.connect(db, {
+  useMongoClient: true
 });
-
 // Instantiate Express Application Object
 const app = express();
 
