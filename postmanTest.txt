@@ -5,6 +5,7 @@
   "Name": "name",
   "Email": "ms@gmail.com",
   "Password": "22ww",
+  Phone:"05555555",
   "password2":"22w",
   "Gender": "F" 
   }
@@ -15,3 +16,43 @@
 	"Email":"mseess@gmaildd.com",
 	"Password" : "22ww"
 }
+
+
+
+"/api/subjects"
+{
+	“subject”:{
+    “Name”: “English”,
+    “SubjectCode”: “104”,
+    “Level”: “4”
+	}
+}
+
+
+
+http://localhost:5000/api/registerParent
+  {
+	"parent":{
+    "Name": "salman",
+    "Email": "salman@gmail.com",
+    "Password": "ssSSSs",
+     "Gender": "M",
+    "Phone":"444"
+	}
+}
+
+
+http://localhost:5000/api/AddFeed
+    {
+    "feed":{
+    
+    "Name": "COVID-19",
+    "Description":"The school will be closed due to coronavirus, please stay at home and be safe. Don't forget to wash your hand ",
+    "Date": "11/12/11",
+    "EndDate":"12/12/12"
+
+    
+    }
+    }
+
+
