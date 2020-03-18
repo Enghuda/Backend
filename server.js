@@ -8,7 +8,8 @@ const subjectRouter = require('./app/routes/subjects');
 const indexRouter = require("./app/routes/index");
 const adminRouter = require("./app/routes/admin");
 const studentRouter = require('./app/routes/students');
-
+const parentRouter= require('./app/routes/parents');
+const feedRouter= require('./app/routes/feeds');
 // Require DB Configuration File
 const db = require('./config/db');
 
