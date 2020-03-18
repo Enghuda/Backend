@@ -50,9 +50,6 @@ else {
  * Description:   create new student
  */
 router.post("/api/students",(req,res)=>{
-    console.log("-------------------------");
-    console.log(req.body);
-    console.log("-------------------------");
     Student.create(req.body.student)
         .then((newStudent)=>{
             res.status(201).json({student:newStudent})
@@ -61,11 +58,6 @@ router.post("/api/students",(req,res)=>{
             res.status(500).json({error:error});
         })
 })
-
-
-
-
-
 /**
  * Action:        UPDATE
  * Method:        PATCH
@@ -96,11 +88,7 @@ router.patch('/api/students/:id',(req,res)=>{
         .catch((error)=>{
             res.status(500).json({error:error})
         })
-
-
 });
-
-
 
 /**
  * Action:        DESTROY
@@ -130,9 +118,6 @@ router.delete('/api/students/:id',(req,res)=>{
         })
 });
 
-
-
-
 // * Action:       CREATE
 // * Method:       POST
 // * URI:          /api/students/:studentId/attendance
@@ -151,16 +136,12 @@ router.post('/api/students/:studentId/attendance', (req, res) => {
     })
   })
 });
-
-
 /**
 * Action:      SHOW
 * Method:      GET
 * URI:         /api/students/5e71e92d0bfeca7f91ddfb7d/attendance
 * Description: get all attendance 
 */
-
-
 router.get('/api/students/:studentId/attendance', (req, res) => {
     Student.findById(req.params.studentId)
       .then((student) => {
@@ -181,8 +162,6 @@ router.get('/api/students/:studentId/attendance', (req, res) => {
         res.status(500).json({ error: error });
       })
   });
-
-
   /**
 * Action:      SHOW
 * Method:      GET

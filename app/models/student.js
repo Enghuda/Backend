@@ -9,10 +9,8 @@ const attendanceSchema = new mongoose.Schema({
 },
    {
     timestamps: true
-  
 
 });
-
 // Define Student Schema
 const studentSchema = new mongoose.Schema({
   FirstName: { type: String, required: true },

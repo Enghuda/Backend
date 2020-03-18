@@ -5,8 +5,6 @@ const express = require('express');
 const Feed = require("../models/feed");
 // Instantiate a Router (mini app that only handles routes)
 const router = express.Router();
-
-
 /**
  * Action:        INDEX
  * Method:        GET
@@ -71,9 +69,6 @@ router.get('/api/feeds/:id', (req, res) => {
     res.status(500).json({ error: error });
   })
 });
-
-
-
 /**
  * Action:      UPDATE
  * Method:      PATCH

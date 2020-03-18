@@ -7,8 +7,6 @@ const feedSchema = new mongoose.Schema({
     Date:Date,
     EndDate:Date,
     })
-
-
 // Compile our Model based on the Schema
 const Feed = mongoose.model("Feed;", feedSchema);
 
