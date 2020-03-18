@@ -272,7 +272,9 @@ router.delete('/api/subjects/:subjectId/exams/:examId', (req, res) => {
     foundExam.Exam.id(examid).remove();
     foundExam.save();
       res.json(foundExam);
+
   });
+  
 });
 // Export the Router so we can use it in the server.js file
 module.exports = router;
