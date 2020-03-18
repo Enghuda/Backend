@@ -1,6 +1,18 @@
 // Require necessary NPM packages
 const mongoose = require("mongoose");
 
+
+// Define attendance Schema 
+const attendanceSchema = new mongoose.Schema({
+  IsPresent:  String,
+  Date: {type: String}
+},
+   {
+    timestamps: true
+  
+
+});
+
 // Define Student Schema
 const studentSchema = new mongoose.Schema({
   FirstName: { type: String, required: true },
@@ -8,11 +20,14 @@ const studentSchema = new mongoose.Schema({
   ID: Number,
   Gender: String,
   DOB: Date,
-  subject: [{ type: mongoose.Schema.Types.ObjectId, ref: "Subject" }]
+  Attendance: [],
+  Subject: [{ type: mongoose.Schema.Types.ObjectId, ref: "Subject" }]
 });
 
 // Compile our Model based on the Schema
 const Student = mongoose.model('Student', studentSchema);
+const Attendance = mongoose.model('Attendance', attendanceSchema);
+
 
 // Export our Model for use
-module.exports = Student;
+module.exports = {Student, Attendance} ;

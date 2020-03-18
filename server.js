@@ -64,6 +64,8 @@ const tokenOrBearer = require('./auth/token_or_bearer');
 // Mount imported Routers
 app.use(subjectRouter);
 app.use(studentRouter);
+app.use(parentRouter);
+app.use(feedRouter);
 app.use(requestLogger)
 app.use(tokenOrBearer)
 
