@@ -70,11 +70,11 @@ router.post("/api/registerParent", async (req, res) => {
  */
 
 //login
-router.post("/api/login", async (req, res) => {
+router.post("/api/loginParent", async (req, res) => {
   //ES6
   const email = req.body.Email;
   const pw = req.body.Password;
-  let parentUser;
+  let user;
   Parent.findOne({ Email: email })
     .then(record => {
       // if we didn't find a parentUser with that email, send 401
@@ -87,7 +87,7 @@ router.post("/api/login", async (req, res) => {
           }
         });
       }
-      user = record;
+     user= record;
       return bcrypt.compare(pw, record.Password);
     })
     .then(correctPassword => {
@@ -97,9 +97,9 @@ router.post("/api/login", async (req, res) => {
       } else {
         // the token will be a 16 byte random hex string
         const token = crypto.randomBytes(16).toString("hex");
-        parentUser.token = token;
+        user.token = token;
         // save the token to the DB as a property on parentUser
-        return parentUser.save();
+        return user.save();
         // if the passwords matched
         //res.send("success");
         // the token will be a 16 byte random hex string
@@ -110,9 +110,9 @@ router.post("/api/login", async (req, res) => {
         // res.status(201).json({ parentUser });
       }
     })
-    .then(parentUser => {
+    .then(user => {
       // return status 201, the email, and the new token
-      res.status(201).json({ parentUser:parentUser});
+      res.status(201).json({ user: user});
     })
     // Catch any errors that might occur
     .catch(error => {

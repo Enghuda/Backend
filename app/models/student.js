@@ -4,8 +4,12 @@ const mongoose = require("mongoose");
 
 // Define attendance Schema 
 const attendanceSchema = new mongoose.Schema({
-  IsPresent: {type: Boolean, default: true},
-  Date: Date
+  IsPresent:  String,
+  Date: {type: String}
+},
+   {
+    timestamps: true
+  
 
 });
 
