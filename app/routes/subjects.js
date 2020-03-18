@@ -268,10 +268,10 @@ router.delete('/api/subjects/:subjectId/exams/:examId', (req, res) => {
   const sujectid = req.params.subjectId;
   const examid = req.params.examId;
   // find exam in db by id
-  Subject.findById(sujectid, (err, foundArticle) => {
-      foundArticle.Exam.id(examid).remove();
-      foundArticle.save();
-      res.json(foundArticle);
+  Subject.findById(sujectid, (err, foundExam) => {
+    foundExam.Exam.id(examid).remove();
+    foundExam.save();
+      res.json(foundExam);
   });
 });
 // Export the Router so we can use it in the server.js file
