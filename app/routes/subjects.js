@@ -5,22 +5,28 @@ const { Subject, Exam } = require("../models/subject");
 // const {} = require('../models/exam');
 // Instantiate a Router (mini app that only handles routes)
 const router = express.Router();
+const handle404 = record => {
+  if (!record) {
+    throw new DocumentNotFoundError();
+  } else {
+    return record;
+  }
+};
 /**
  * Action:        INDEX
  * Method:        GET
  * URI:           /api/courses
  * Description:   Get All Subjects
  */
-router.get("/api/subjects", (req, res) => {
+router.get("/api/subjects", (req, res, next) => {
   Subject.find()
+  .then(handle404)
     // Return all Subjects as an Array
     .then(allSubjects => {
       res.status(200).json({ subjects: allSubjects });
     })
     // Catch any errors that might occur
-    .catch(error => {
-      res.status(500).json({ error: error });
-    });
+    .catch(next);
 });
 /////////////////////////////////////////////////////////////
 /**
