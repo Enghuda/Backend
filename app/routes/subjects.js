@@ -30,7 +30,7 @@ router.get("/api/subjects", (req, res) => {
  * Description:  Create a new Subject
  */
 
-router.post('/api/subjects', (req, res) => {
+router.post('/api/AddNewSub', (req, res) => {
 
   Subject.create(req.body.subject)
     // On a successful `create` action, respond with 201
@@ -226,7 +226,7 @@ router.get('/api/subjects/:subjectId/exams/:examId', (req, res) => {
  * Description: Update Exam by exam ID
  */
 router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
-  console.log("params:", req.params);
+  //console.log("params:", req.params);
   const examInfo=req.body.Exam
   //find s by id  
   Subject.findById(req.params.subjectId)
@@ -267,11 +267,34 @@ router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
 router.delete('/api/subjects/:subjectId/exams', (req, res) => {
   Subject.findById(req.params.subjectId)
     .then((subjects) => {
-      //res.json({subjects:subjects.Exam})
       subjects.Exam.pop()
       subjects.save()
       res.json({ subjects: subjects })
+    }) 
+/*     Subject.findById(req.params.subjectId)
+    .then((subject) => {
+      if (subject) {
+        for (let i = 0; i < subject.Exam.length; i++) {
+          const oneExamObj = subject.Exam[i];
+
+          if (oneExamObj._id.toString() === req.params.examId) {
+            console.log('I find it');
+           return oneExamObj.delete();
+          }
+        }
+      } else {
+        res.status(404).json({
+          error: {
+            name: 'Exam NotFound Error',
+            message: 'The provided ID doesn\'t match any documents'
+          }
+        });
+      }
     })
+    // Catch any errors that might occur
+    .catch((error) => {
+      res.status(500).json({ error: error });
+    }) */
 });
 
 // Export the Router so we can use it in the server.js file
