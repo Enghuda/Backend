@@ -199,11 +199,11 @@ router.get('/api/subjects/:subjectId/exams/:examId', (req, res) => {
           const oneExamObj = subject.Exam[i];
           if (oneExamObj._id.toString() === req.params.examId) {
             console.log('heeeeeey I find it');
-             findedExam=oneExamObj
+            findedExam = oneExamObj
           }
         }
         console.log("finish")
-        res.status(200).json({exam:findedExam});
+        res.status(200).json({ exam: findedExam });
 
       } else {
         res.status(404).json({
@@ -227,21 +227,23 @@ router.get('/api/subjects/:subjectId/exams/:examId', (req, res) => {
  */
 router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
   //console.log("params:", req.params);
-  const examInfo=req.body.Exam
+  const examInfo = req.body.Exam
   //find s by id  
   Subject.findById(req.params.subjectId)
     .then((subject) => {
       let findedExam;
+
       if (subject) {
+
         for (let i = 0; i < subject.Exam.length; i++) {
           const oneExamObj = subject.Exam[i];
           if (oneExamObj._id.toString() === req.params.examId) {
             console.log('heeeeeey I find it');
-            oneExamObj.Name=examInfo.Name
-            findedExam=oneExamObj
+            oneExamObj.Name = examInfo.Name
+            findedExam = oneExamObj
           }
         }
-      subject.save()
+        subject.save()
         res.status(200).json(findedExam);
 
       } else {
@@ -271,10 +273,10 @@ router.delete('/api/subjects/:subjectId/exams/:examId', (req, res) => {
   Subject.findById(sujectid, (err, foundExam) => {
     foundExam.Exam.id(examid).remove();
     foundExam.save();
-      res.json(foundExam);
+    res.json(foundExam);
 
   });
-  
+
 });
 // Export the Router so we can use it in the server.js file
 module.exports = router;
