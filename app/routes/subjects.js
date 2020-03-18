@@ -11,16 +11,14 @@ const router = express.Router();
  * URI:           /api/courses
  * Description:   Get All Subjects
  */
-router.get("/api/subjects", (req, res) => {
+router.get("/api/subjects", (req, res, next) => {
   Subject.find()
     // Return all Subjects as an Array
     .then(allSubjects => {
       res.status(200).json({ subjects: allSubjects });
     })
     // Catch any errors that might occur
-    .catch(error => {
-      res.status(500).json({ error: error });
-    });
+    .catch(next);
 });
 /////////////////////////////////////////////////////////////
 /**
