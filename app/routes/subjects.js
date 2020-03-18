@@ -30,7 +30,7 @@ router.get("/api/subjects", (req, res) => {
  * Description:  Create a new Subject
  */
 
-router.post('/api/subjects', (req, res) => {
+router.post('/api/AddNewSub', (req, res) => {
 
   Subject.create(req.body.subject)
     // On a successful `create` action, respond with 201
@@ -226,7 +226,7 @@ router.get('/api/subjects/:subjectId/exams/:examId', (req, res) => {
  * Description: Update Exam by exam ID
  */
 router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
-  console.log("params:", req.params);
+  //console.log("params:", req.params);
   const examInfo=req.body.Exam
   //find s by id  
   Subject.findById(req.params.subjectId)
@@ -262,17 +262,17 @@ router.patch('/api/subjects/:subjectId/exams/:examId', (req, res) => {
 * Action:       DESTROY
 * Method:       DELETE
 * URI:          /api/subjects/5e7113020443183fec141fbb/exams
-* Description:  Delete Exam
+* Description:  Delete Exam by ID
 */
-router.delete('/api/subjects/:subjectId/exams', (req, res) => {
-  Subject.findById(req.params.subjectId)
-    .then((subjects) => {
-      //res.json({subjects:subjects.Exam})
-      subjects.Exam.pop()
-      subjects.save()
-      res.json({ subjects: subjects })
-    })
+router.delete('/api/subjects/:subjectId/exams/:examId', (req, res) => {
+  const sujectid = req.params.subjectId;
+  const examid = req.params.examId;
+  // find exam in db by id
+  Subject.findById(sujectid, (err, foundArticle) => {
+      foundArticle.Exam.id(examid).remove();
+      foundArticle.save();
+      res.json(foundArticle);
+  });
 });
-
 // Export the Router so we can use it in the server.js file
 module.exports = router;
