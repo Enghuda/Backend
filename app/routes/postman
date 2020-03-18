@@ -1,0 +1,51 @@
+Add Exam //http://localhost:5000/api/subjects/5e6f5275f9817716a806c4b1/exams
+   {
+    "newExam": {
+        "Name": "Exam2"
+}
+}
+{
+    "Teacher": [],
+    "_id": "5e6f5275f9817716a806c4b1",
+    "Name": "Math",
+    "Exam": [
+        {
+            "_id": "5e6f5286f9817716a806c4b2",
+            "Name": "Exam1",
+            "createdAt": "2020-03-16T10:18:46.032Z",
+            "updatedAt": "2020-03-16T10:18:46.032Z"
+        },
+        {
+            "_id": "5e6f528df9817716a806c4b4",
+            "Name": "Exam2",
+            "createdAt": "2020-03-16T10:18:53.701Z",
+            "updatedAt": "2020-03-16T10:18:53.701Z"
+        }
+    ],
+    "__v": 2
+}
+//////////////////////////////////////////////////////////////////////
+Delete //http://localhost:5000/api/subjects/5e6f5275f9817716a806c4b1/exams
+
+{
+    "subjects": {
+        "Teacher": [],
+        "_id": "5e6f5275f9817716a806c4b1",
+        "Name": "Math",
+        "Exam": [
+            {
+                "_id": "5e6f5286f9817716a806c4b2",
+                "Name": "Exam1",
+                "createdAt": "2020-03-16T10:18:46.032Z",
+                "updatedAt": "2020-03-16T10:18:46.032Z"
+            }
+        ],
+        "__v": 2
+    }
+}
+
+
+
+
+
+
